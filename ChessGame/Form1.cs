@@ -10,34 +10,51 @@ using System.Windows.Forms;
 
 namespace ChessGame
 {
-    public partial class Form1 : Form
+    public partial class InitialForm : Form
     {
-        public Form1()
+        public InitialForm()
         {
             InitializeComponent();
-            int offset = 50;
-            int x = 0;
-            for (int i = 0; i < 8; i++)
+            int offset_y = 50;
+            int y_pos = 200;
+            for (int col = 0; col < 8; col++)
             {
-                PictureBox temp = new PictureBox()
+                int offset_x = 50;
+                int x_pos = 200;
+                for (int row = 0; row < 8; row++)
                 {
-                    Location = new Point(x, 0),
-                    Size = new Size(50, 50),
-                    BackColor = Color.Red
-                };
+                    PictureBox temp = new PictureBox()
+                    {
+                        Location = new Point(x_pos, y_pos),
+                        Size = new Size(50, 50),
+                        BackColor = Color.Red
+                    };
+                    if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1))
+                    {
+                        temp.BackColor = Color.Yellow;
+                    }
 
-                temp.Click += pictureBox39_Click;
-                this.Controls.Add(temp);
-                x += offset+1;
+                    temp.Click += pictureBox39_Click;
+                    this.Controls.Add(temp);
+                    x_pos += offset_x + 1;
+                }
+                y_pos += offset_y + 1;
             }
         }
 
+        public void DrawRectangle(PaintEventArgs e)
+        {
+            Pen blackPen = new Pen(Color.Black, 3);
 
+            Rectangle rect = new Rectangle(0, 0, 400,400);
+
+            e.Graphics.DrawRectangle(blackPen, rect);
+        }
 
         private void pictureBox39_Click(object sender, EventArgs e)
         {
             PictureBox temp = (PictureBox)sender;
-            MessageBox.Show(temp.Location.X.ToString());
+            MessageBox.Show((temp.Location.X.ToString()) + " " + (temp.Location.Y.ToString()));
         }
     }
 }
