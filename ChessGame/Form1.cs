@@ -12,9 +12,17 @@ namespace ChessGame
 {
     public partial class InitialForm : Form
     {
+        private const int size = 30;
         public InitialForm()
         {
             InitializeComponent();
+
+            //Construct the chess board
+            InitializeBoard();
+            
+        }
+        public void InitializeBoard()
+        {
             int offset_y = 50;
             int y_pos = 200;
             for (int col = 0; col < 8; col++)
@@ -41,7 +49,6 @@ namespace ChessGame
                 y_pos += offset_y + 1;
             }
         }
-
         public void DrawRectangle(PaintEventArgs e)
         {
             Pen blackPen = new Pen(Color.Black, 3);
@@ -55,6 +62,20 @@ namespace ChessGame
         {
             PictureBox temp = (PictureBox)sender;
             MessageBox.Show((temp.Location.X.ToString()) + " " + (temp.Location.Y.ToString()));
+        }
+
+        private void InitialForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InitialForm_Paint(object sender, PaintEventArgs e)
+        {
+            Pen blackPen = new Pen(Color.Black, 3);
+
+            Rectangle rect = new Rectangle(197, 197, 410, 410);
+
+            e.Graphics.DrawRectangle(blackPen, rect);
         }
     }
 }
