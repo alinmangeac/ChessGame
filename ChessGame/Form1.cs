@@ -12,7 +12,9 @@ namespace ChessGame
 {
     public partial class InitialForm : Form
     {
-        private const int size = 30;
+        private int size = 0;
+        private int initial_pos_x = 0;
+        private int initial_pos_y = 0;
         public InitialForm()
         {
             InitializeComponent();
@@ -23,42 +25,36 @@ namespace ChessGame
         }
         public void InitializeBoard()
         {
-            int offset_y = 50;
-            int y_pos = 200;
+            const int chess_square_size = 30;
+            int y_pos = 150;
+            initial_pos_y = y_pos - 1;
             for (int col = 0; col < 8; col++)
             {
-                int offset_x = 50;
-                int x_pos = 200;
+                int x_pos = 150;
+                initial_pos_x = x_pos - 1;
                 for (int row = 0; row < 8; row++)
                 {
-                    PictureBox temp = new PictureBox()
+                    PictureBox chess_square = new PictureBox()
                     {
                         Location = new Point(x_pos, y_pos),
-                        Size = new Size(50, 50),
+                        Size = new Size(chess_square_size, chess_square_size),
                         BackColor = Color.Red
                     };
                     if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1))
                     {
-                        temp.BackColor = Color.Yellow;
+                        chess_square.BackColor = Color.Yellow;
                     }
 
-                    temp.Click += pictureBox39_Click;
-                    this.Controls.Add(temp);
-                    x_pos += offset_x + 1;
+                    chess_square.Click += pictureBox_Click;
+                    this.Controls.Add(chess_square);
+                    x_pos += chess_square_size + 1;
                 }
-                y_pos += offset_y + 1;
+                y_pos += chess_square_size + 1;
+                size += chess_square_size + 1;
             }
         }
-        public void DrawRectangle(PaintEventArgs e)
-        {
-            Pen blackPen = new Pen(Color.Black, 3);
 
-            Rectangle rect = new Rectangle(0, 0, 400,400);
-
-            e.Graphics.DrawRectangle(blackPen, rect);
-        }
-
-        private void pictureBox39_Click(object sender, EventArgs e)
+        private void pictureBox_Click(object sender, EventArgs e)
         {
             PictureBox temp = (PictureBox)sender;
             MessageBox.Show((temp.Location.X.ToString()) + " " + (temp.Location.Y.ToString()));
@@ -73,7 +69,7 @@ namespace ChessGame
         {
             Pen blackPen = new Pen(Color.Black, 3);
 
-            Rectangle rect = new Rectangle(197, 197, 410, 410);
+            Rectangle rect = new Rectangle(initial_pos_x, initial_pos_y, size, size);
 
             e.Graphics.DrawRectangle(blackPen, rect);
         }
