@@ -25,7 +25,7 @@ namespace ChessGame
         }
         public void InitializeBoard()
         {
-            const int chess_square_size = 30;
+            const int chess_square_size = 50;
             int y_pos = 150;
             initial_pos_y = y_pos - 1;
             for (int col = 0; col < 8; col++)
